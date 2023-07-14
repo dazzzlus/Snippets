@@ -45,7 +45,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="form-inline"><a class="btn btn-outline-secondary" href="">Добавить сниппет</a></li>
+                    <li class="form-inline"><a class="btn btn-outline-secondary" href="">Добавить сниппет</a>
+                        <form action="url" method="post">
+                            {% csrf_token %}
+                            <table>
+                                {{ form }}
+                            </table>
+                            <input type="submit" value="Submit"/>
+                         </form>
+                    </li>
                     <li class="form-inline"><a class="btn btn-outline-info" href="...">Посмотреть
                         сниппеты</a></li>
                 </ul>
@@ -101,7 +109,7 @@
 <footer class="footer mt-auto py-3">
     <div class="container">
     <span class="text-muted">&copy; Епишкин Семён, {% now "Y" %}. <br>
-        Шаблон заготовка для урока</span>
+        Шаблон заготовка</span>
     </div>
 </footer>
 
