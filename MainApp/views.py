@@ -31,3 +31,8 @@ def create_snippet(request):
             form.save()
             return redirect('redirect_url')       ###################temporary
     return render(request, 'add_snippet.html', {'form': form})
+
+
+def snippet_1(request):
+    context = {'pagename': 'сниппет 1'}
+    return render(request, 'pages/snippets/1.html', context)
