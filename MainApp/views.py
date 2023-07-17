@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from MainApp.forms import SnippetForm
 from .models import Snippet
@@ -23,7 +23,7 @@ def add_snippet_page(request):
 
 def snippets_page(request):
     context = {'pagename': 'Просмотр сниппетов'}
-    preview=Snippet.objects.filter(id=1)
+    # preview=Snippet.objects.filter(id=1)
     return render(request, 'pages/view_snippets.html', context)
 
 def create_snippet(request):
@@ -41,7 +41,18 @@ def snippet_1(request):
 
 def get_snippets(request):
     snippets = Snippet.objects.filter(hide=False, is_public=True)
-    for item in snippets:
-        item.creation_date = item.creation_date.strftime("%Y-%m-%d %H:%M")
+    for snippet in snippets:
+        snippet.creation_date = snippet.creation_date.strftime("%Y-%m-%d %H:%M")
     context = {"snippets": snippets, "hide": False}
     return render(request, "pages/view_snippets.html", context)
+
+def get_snippets_hidden(request):
+    snippets=Snippet.objects.filter(is_public=True)
+    for snippet in snippets:
+        snippet.creation_date = snippet.creation_date.strftime("%Y-%m-%d %H:%M")
+    context = {"snippets": snippets, "hide": True}
+    return render(request, "pages/view_snippets.html", context)
+
+
+
+
