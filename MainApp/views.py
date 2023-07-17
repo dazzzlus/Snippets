@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponseNotFound
+from django.http import Http404, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from MainApp.forms import SnippetForm
 from .models import Snippet
@@ -52,6 +52,16 @@ def get_snippets_hidden(request):
         snippet.creation_date = snippet.creation_date.strftime("%Y-%m-%d %H:%M")
     context = {"snippets": snippets, "hide": True}
     return render(request, "pages/view_snippets.html", context)
+
+
+def snippet_switch(request, id):
+    snippet = Snippet.objects.get(id=id)
+    if snippet.hide:
+        snippet.hide = False
+    else:
+        snippet.hide = True
+    snippet.save()
+    return HttpResponseRedirect("/snippets/list")
 
 
 

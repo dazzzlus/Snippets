@@ -81,6 +81,9 @@
                         <th scope="col">ID</th>
                         <th scope="col">Название</th>
                         <th scope="col">Дата создания</th>
+                        <th scope="col">Скрытые</th>
+                        <th scope="col">Удалить</th>
+                        <th scope="col">Изменить</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -90,6 +93,17 @@
                         <td scope="row">{{snippet.id}}</td>
                         <td><a href="{% url 'snippet_1' %}">{{snippet.name}}</a></td>
                         <td>{{snippet.creation_date}}</td>
+                        <td>
+                            {% if snippet.hide %}
+                            <form action="snippet_switch/{{snippet.id}}">
+                                <input type="submit" value="Не прятать" />
+                            </form>
+                            {% else %}
+                            <form action="snippet_switch/{{ snippet.id }}">
+                                <input type="submit" value="Спрятать" />
+                            </form>
+                        {% endif %}
+                        </td>
                     </tr>
                     {% endfor %}
 
