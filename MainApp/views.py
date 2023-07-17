@@ -63,6 +63,11 @@ def snippet_switch(request, id):
     snippet.save()
     return HttpResponseRedirect("/snippets/list")
 
+def delete_snippet(request, id):
+    snippet = Snippet.objects.get(id=id)
+    snippet.delete()
+    return HttpResponseRedirect("/snippets/list")
+    
 
 
 
