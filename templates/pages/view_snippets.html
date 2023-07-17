@@ -104,9 +104,16 @@
                             </form>
                         {% endif %}
                         </td>
+
                         <td>
                             <form action="delete/{{ snippet.id }}">
                                 <input type="submit" value="Удалить"/>
+                            </form>
+                        </td>
+                        
+                        <td>
+                            <form action="edit/{{ snippet.id }}">
+                                <input type="submit" value="Отредактировать"/>
                             </form>
                         </td>
                     </tr>

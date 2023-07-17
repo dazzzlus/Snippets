@@ -42,14 +42,14 @@ def snippet_1(request):
 def get_snippets(request):
     snippets = Snippet.objects.filter(hide=False, is_public=True)
     for snippet in snippets:
-        snippet.creation_date = snippet.creation_date.strftime("%Y-%m-%d %H:%M")
+        snippet.creation_date = snippet.creation_date.strftime("%d/%m/%Y %H:%M")
     context = {"snippets": snippets, "hide": False}
     return render(request, "pages/view_snippets.html", context)
 
 def get_snippets_hidden(request):
     snippets=Snippet.objects.filter(is_public=True)
     for snippet in snippets:
-        snippet.creation_date = snippet.creation_date.strftime("%Y-%m-%d %H:%M")
+        snippet.creation_date = snippet.creation_date.strftime("%d/%m/%Y %H:%M")
     context = {"snippets": snippets, "hide": True}
     return render(request, "pages/view_snippets.html", context)
 
@@ -67,7 +67,21 @@ def delete_snippet(request, id):
     snippet = Snippet.objects.get(id=id)
     snippet.delete()
     return HttpResponseRedirect("/snippets/list")
-    
+
+
+def change_snippet(request, id):
+    snippet = Snippet.objects.get(id=id)
+    snippet.creation_date = snippet.creation_date.strftime("%d/%m/%Y %H:%M")
+    context={'snippet': snippet}
+    return render(request, 'pages/change_snippet.html')
 
 
 
+def change(request):
+    snippet = Snippet.objects.get(id=request.POST.get("id"))
+
+    snippet.name = request.POST.get("name")
+    snippet.lang = request.POST.get("lang")
+    snippet.code = request.POST.get("code")
+    snippet.save()
+    return HttpResponseRedirect("/snippets/list")
