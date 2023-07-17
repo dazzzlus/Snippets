@@ -31,7 +31,7 @@ def create_snippet(request):
         form = SnippetForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('redirect_url')       ###################temporary
+            return redirect('/')      
     return render(request, 'add_snippet.html', {'form': form})
 
 
