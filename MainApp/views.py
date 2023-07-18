@@ -78,10 +78,11 @@ def change_snippet(request, id):
 
 
 def change(request):
+    # snippet = Snippet.objects.get(id=request.POST.get("id"))
     snippet = Snippet.objects.get(id=request.POST.get("id"))
-
     snippet.name = request.POST.get("name")
     snippet.lang = request.POST.get("lang")
     snippet.code = request.POST.get("code")
+    snippet.is_public=True
     snippet.save()
     return HttpResponseRedirect("/snippets/list")
